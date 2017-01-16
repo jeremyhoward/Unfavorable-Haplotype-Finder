@@ -1,0 +1,17 @@
+--- Parameter file for ROH Unfavorable Haplotype Finder —
+THREADS: 4
+------|FILES TO READ IN|-----
+MAP_FILE: haplo_map.txt
+PHENO_FILE: haplo_pheno.txt
+GENO_FILE: haplo_geno.txt
+PEDIGREE: pedigreefile.txt.SRT
+------|LOCATION OF VARIABLES|-------
+ID: 1
+PHENOTYPE: 2
+------|VARIANCE COMPONENTS|---------
+VAR_RESIDUAL: 0.722969
+VAR_ANIMAL: 0.204449
+------|RUNNING PARAMATERS|----------
+CUTOFF: data 1000
+UNFAV_DIRECTION: low
+ASREML_CHECK: yes
