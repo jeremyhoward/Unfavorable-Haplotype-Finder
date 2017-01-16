@@ -16,6 +16,8 @@ Information Files:
 - haplo_pheno.txt
 - Parameter_File
 - pedigree.txt
+- asreml_check.as
+- asreml_null.as
 
 Source Code Files:
 - Scan_Genomee.cpp
