@@ -1,6 +1,6 @@
 # Unfavorable-Haplotype-Finder
 
-Unfavorable-Haplotype-Finder is a software identify haplotypes contained within a run of homozygosity (ROH) that give rise to an unfavorable phenotype. 
+Unfavorable-Haplotype-Finder is a software identify haplotypes contained within a run of homozygosity (ROH) that give rise to an unfavorable phenotype. An updated version that corrected minor bugs was uploaded on November 18, 2017.
 
 It utilizes Intel MKL and Eigen libraries to perform matrix multiplication and is multi-threaded.
 
