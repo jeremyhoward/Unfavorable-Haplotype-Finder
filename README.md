@@ -7,7 +7,7 @@ It utilizes Intel MKL and Eigen libraries to perform matrix multiplication and i
 The user manual contains all the necessary information to run and generate your own simulation scenarios.
 
 Linux Executable Files:
-- ROH_Finder
+- Haplofinder
 
 Information Files:
 - Unfavorable-Haplotype-Finder Manual
