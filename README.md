@@ -4,7 +4,7 @@ Unfavorable-Haplotype-Finder is a software identify haplotypes contained within 
 
 It utilizes Intel MKL and Eigen libraries to perform matrix multiplication and is multi-threaded.
 
-The user manual contains all the necessary information to run and generate your own simulation scenarios.
+The user manual contains all the necessary information to run the program along with an example.
 
 Linux Executable Files:
 - Haplofinder
