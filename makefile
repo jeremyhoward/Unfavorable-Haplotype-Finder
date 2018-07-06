@@ -19,7 +19,10 @@ CXXFLAGS = -O3 -DMKL_ILP64 -m64 -fopenmp -std=c++11 -I ${EIGEN_PATH} -I ${MKLPAT
 LIBS = -L$(MKLPATH)/lib/intel64
 LDFLAGS =  -Wl,--start-group ${MKLPATH}/lib/intel64/libmkl_intel_ilp64.a ${MKLPATH}/lib/intel64/libmkl_core.a ${MKLPATH}/lib/intel64/libmkl_gnu_thread.a -Wl,--end-group -lpthread -lm -ldl
 
-SRC = Scan_Genomee.cpp
+HDR += HaplofinderClasses.h
+
+SRC = HaplofinderClasses.cpp \
+	Scan_Genome_Final.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
