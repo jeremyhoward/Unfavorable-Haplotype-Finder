@@ -474,12 +474,6 @@ void GenerateAinv(string pedigreefile,vector < string > const &uniqueID,vector <
     //cout << endl;
     dpotrf(&lowera, &int_na, Relationshipinv_mkl, &int_na, &infoa);    /* Calculate upper triangular L matrix */
     dpotri(&lowera, &int_na, Relationshipinv_mkl, &int_na, &infoa);    /* Calculate inverse of lower triangular matrix result is the inverse */
-    //for(int i = 0; i < 5; i++)
-    //{
-    //    for(int j = 0; j < 5; j++){cout << Relationshipinv_mkl[(i*na) + j] << "\t";}
-    //    cout << endl;
-    //}
-    //cout << endl;
     /* Copy upper triangler part to lower traingular part and then you have the inverse ! */
     #pragma omp parallel for private(j_pa)
     for(j_pa = 0; j_pa < na; j_pa++)
@@ -841,6 +835,12 @@ void GenerateLHSRed(vector <int> const &X_i, vector <int> const &X_j, vector <do
             //exit (EXIT_FAILURE);
         }
     }
+    //cout << endl << endl;
+    //for(int i = 0; i < 10; i++)
+    //{
+    //    for(int j = 0; j < 10; j++){cout << LHS[(i*dim_lhs) + j] << "\t";}
+    //    cout << endl;
+    //}
     for(int i = 0; i < dim_lhs; i++)
     {
         LHSred_i.push_back(LHSred_j.size());
@@ -850,7 +850,7 @@ void GenerateLHSRed(vector <int> const &X_i, vector <int> const &X_j, vector <do
         }
     }
     //cout << LHSred_i.size() << " " << LHSred_j.size() << " " << LHSred_A.size() << endl;
-    //for(int i = 0; i < 10; i++){cout << i + 1 << "- " << LHSred_i[i] << endl;}
+    //for(int i = 0; i < 10; i++){cout << i + 1 << "- " << LHSred_i[i] << " " << LHSred_j[i] << " " << LHSred_A[i] << endl;}
     Xfullrank.resize(0,0); Z.resize(0,0); delete [] LHS;
 }
 /////////////////////////////////////////
@@ -878,6 +878,12 @@ void updateLHSinv(vector <int> const &X_i, vector <int> const &X_j, vector <doub
         }
         RHSupdated[i_p] = 0.0;
     }
+    //cout << endl << endl;
+    //for(int i = 0; i < 10; i++)
+    //{
+    //    for(int j = 0; j < 10; j++){cout << LHSinvupdated[(i*upddim_lhs) + j] << "\t";}
+    //    cout << endl;
+    //}
     int ipar, jpar;
     int rohclasses = upddim_lhs - dim_lhs;
     /* Get appropriate matrices constructed */
@@ -952,6 +958,11 @@ void updateLHSinv(vector <int> const &X_i, vector <int> const &X_j, vector <doub
         Xhapy;
     }
     for(int i = 0; i < upddim_lhs; i++){RHSupdated[i] = RHS(i,0);}
+    //for(int i = 0; i < 10; i++)
+    //{
+    //    for(int j = 0; j < 10; j++){cout << LHSinvupdated[(i*upddim_lhs) + j] << "\t";}
+    //    cout << endl;
+    //}
     //for(int i = 0; i < upddim_lhs; i++)
     //{
     //    for(int j = 0; j < upddim_lhs; j++)
@@ -984,6 +995,7 @@ void updateLHSinv(vector <int> const &X_i, vector <int> const &X_j, vector <doub
     //}
     spotrf(&lower, &int_n, LHSinvupdated, &int_n, &info);          /* Calculate upper triangular L matrix */
     spotri(&lower, &int_n, LHSinvupdated, &int_n, &info);          /* Calculate inverse of lower triangular matrix */
+    //cout << info << endl;
     /* Copy upper triangler part to lower traingular part and then you have the inverse ! */
     for(int jpar = 0; jpar < upddim_lhs; jpar++)
     {
@@ -1268,6 +1280,7 @@ void doublecheckasreml(vector <CHR_Index> chr_index,int min_Phenotypes,vector <i
     //////////////////////////////////////////////////////////////////
     int upddim_lhs = dim_lhs + mean_ROH.size() - 1;
     float* LHSinvupdated = new float[upddim_lhs*upddim_lhs];
+    for(int i = 0; i < upddim_lhs*upddim_lhs; i++){LHSinvupdated[i] = 0.0;}
     float* solutions = new float[upddim_lhs];
     updateLHSinv(X_i,X_j,X_A,dimension,ZW_i,ZW_j,ZW_A,LHSred_i,LHSred_j,LHSred_A,uniqueID,sub_genotype,LHSinvupdated,dim_lhs,upddim_lhs,solutions,pheno);
     //for(int i = 0; i < 100; i++){cout << i + 1 << " " << solutions[i] << endl;}
@@ -1438,6 +1451,7 @@ double phenocutoff(vector <CHR_Index> chr_index,int null_samples,int min_Phenoty
         {
             int upddim_lhs = dim_lhs + mean_ROH.size() - 1;
             float* LHSinvupdated = new float[upddim_lhs*upddim_lhs];
+            for(int i = 0; i < upddim_lhs*upddim_lhs; i++){LHSinvupdated[i] = 0.0;}
             float* solutions = new float[upddim_lhs];
             updateLHSinv(X_i,X_j,X_A,dimension,ZW_i,ZW_j,ZW_A,LHSred_i,LHSred_j,LHSred_A,uniqueID,sub_genotype,LHSinvupdated,dim_lhs,upddim_lhs,solutions,pheno);
             //for(int i = 0; i < 100; i++){cout << i + 1 << " " << solutions[i] << endl;}
@@ -2094,6 +2108,7 @@ void Step2(vector < Unfavorable_Regions > &regions,int min_Phenotypes,vector <st
         //////////////////////////////////////////////////////////////////
         int upddim_lhs = dim_lhs + mean_ROH.size() - 1;
         float* LHSinvupdated = new float[upddim_lhs*upddim_lhs];
+        for(int i = 0; i < upddim_lhs*upddim_lhs; i++){LHSinvupdated[i] = 0.0;}
         float* solutions = new float[upddim_lhs];
         updateLHSinv(X_i,X_j,X_A,dimension,ZW_i,ZW_j,ZW_A,LHSred_i,LHSred_j,LHSred_A,uniqueID,sub_genotype,LHSinvupdated,dim_lhs,upddim_lhs,solutions,pheno);
         //for(int i = 0; i < 100; i++){cout << i + 1 << " " << solutions[i] << endl;}
