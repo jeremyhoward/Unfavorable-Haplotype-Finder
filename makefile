@@ -5,7 +5,7 @@
 #-----------------------------------#
 
 # Director of the target
-OUTPUT = ROH_Finder
+OUTPUT = Haplofinder
 
 # Compiler
 CXX = g++
